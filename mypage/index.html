@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebEkwal Technologies — Your Digital Growth Partner</title>
+  
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0E1338',
+              crimson: '#10B981', // Updated to vibrant green
+              burgundy: '#047857', // Updated to deep emerald
+              surface: '#F8F9FC',
+              border: '#E5E7EB',
+              text: '#374151',
+              darkCard: '#151B4B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0E1338; }
+    ::-webkit-scrollbar-thumb { background: #047857; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10B981; }
+
+    /* Subtle Geometric Grid */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(14, 19, 56, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 19, 56, 0.04) 1px, transparent 1px);
+    }
+    
+    .bg-dark-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+
+    /* Motion & Scroll Reveal Classes */
+    .reveal-init {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .is-revealed {
+      opacity: 1 !important;
+      transform: translate(0, 0) scale(1) !important;
+    }
+
+    /* Staggered transition helper */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    /* Card Glows and Shadows */
+    .crimson-glow {
+      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.25);
+    }
+    .card-hover-fx {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+    }
+    .card-hover-fx:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(14, 19, 56, 0.12);
+      border-color: #10B981;
+    }
+
+    /* Accordion Max-Height transition */
+    .faq-answer-container {
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .faq-answer-container.open {
+      max-height: 250px;
+    }
+
+    /* Accessibility: Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-init, .reveal-left, .reveal-right, .reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-brand-text antialiased font-sans selection:bg-brand-crimson selection:text-white relative">
+
+  <!-- ========================================================
+       CINEMATIC PRELOADER
+       ======================================================== -->
+  <div id="site-preloader" class="fixed inset-0 z-50 bg-brand-navy flex flex-col items-center justify-center transition-opacity duration-700 pointer-events-auto">
+    <div class="flex items-center gap-1.5 h-16 w-16 mb-4 justify-center">
+      <div class="h-12 w-3 rounded-full bg-brand-navy border border-white/20 transform -translate-y-4 animate-[pulse_1.2s_ease-in-out_infinite]"></div>
+      <div class="h-16 w-3.5 rounded-full bg-brand-crimson transform animate-[pulse_1.2s_ease-in-out_0.2s_infinite]"></div>
+      <div class="h-12 w-3 rounded-full bg-brand-burgundy transform translate-y-4 animate-[pulse_1.2s_ease-in-out_0.4s_infinite]"></div>
+    </div>
+    <div class="text-center">
+      <div class="font-display font-bold text-2xl text-white tracking-wider">
+        Web<span class="text-brand-crimson">Ekwal</span>
+      </div>
+      <div class="text-[10px] tracking-[0.3em] uppercase text-gray-400 font-medium mt-1">
+        Technologies
+      </div>
+    </div>
+    <div class="w-48 h-1 bg-white/10 rounded-full mt-6 overflow-hidden">
+      <div id="loader-bar" class="w-0 h-full bg-brand-crimson rounded-full transition-all duration-700 ease-out"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       STREAMLINED HEADER & NAVIGATION
+       ======================================================== -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo with Tri-Stripe Emblem -->
+      <a href="#" class="flex items-center gap-3 shrink-0 group focus:outline-none focus:ring-2 focus:ring-brand-crimson rounded-lg p-1" aria-label="WebEkwal Technologies Homepage">
+        <div class="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center gap-1 p-1.5 shadow-md group-hover:scale-105 transition-transform">
+          <div class="w-1.5 h-5 bg-white/90 rounded-sm"></div>
+          <div class="w-2 h-7 bg-brand-crimson rounded-sm"></div>
+          <div class="w-1.5 h-5 bg-brand-burgundy rounded-sm"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-xl tracking-tight text-brand-navy leading-tight">Web<span class="text-brand-crimson">Ekwal</span></span>
+          <span class="text-[9px] tracking-widest uppercase text-gray-500 font-semibold">Technologies</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-brand-navy/90" aria-label="Main Navigation">
+        <a href="#services" class="hover:text-brand-crimson transition-colors duration-200">Services</a>
+        <a href="#partnership" class="hover:text-brand-crimson transition-colors duration-200 whitespace-nowrap">12-Mo Partnership</a>
+        <a href="#free-offer" class="hover:text-brand-crimson transition-colors duration-200 whitespace-nowrap">3-Month Free Offer</a>
+        <a href="#pricing" class="hover:text-brand-crimson transition-colors duration-200">Pricing</a>
+        <a href="#process" class="hover:text-brand-crimson transition-colors duration-200 whitespace-nowrap">How It Works</a>
+        <a href="#faq" class="hover:text-brand-crimson transition-colors duration-200">FAQs</a>
+        <a href="#contact" class="hover:text-brand-crimson transition-colors duration-200">Contact</a>
+      </nav>
+
+      <!-- Header Single Primary Action -->
+      <div class="hidden lg:flex items-center shrink-0">
+        <a href="#contact" class="px-5 py-2.5 rounded-xl bg-brand-crimson text-white text-xs font-bold font-display hover:bg-brand-burgundy transition-all duration-300 shadow-md hover:scale-[1.02] focus:ring-2 focus:ring-offset-2 focus:ring-brand-crimson">
+          Get Started Free
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu-drawer" aria-label="Toggle navigation menu" class="lg:hidden flex items-center gap-2 px-3 py-2 rounded-xl bg-brand-surface border border-brand-border text-brand-navy hover:text-brand-crimson transition">
+        <span id="mobile-menu-label" class="text-xs font-semibold uppercase tracking-wider">Menu</span>
+        <svg id="hamburger-icon" class="w-5 h-5 text-brand-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="close-icon" class="w-5 h-5 text-brand-crimson hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu-drawer" class="lg:hidden hidden bg-white border-b border-brand-border px-6 py-6 shadow-xl transition-all duration-300">
+      <nav class="flex flex-col gap-3 text-sm font-medium text-brand-navy" aria-label="Mobile Navigation">
+        <a href="#services" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">Services</a>
+        <a href="#partnership" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">12-Month Partnership</a>
+        <a href="#free-offer" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">3-Month Free Offer</a>
+        <a href="#pricing" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">Pricing Plans</a>
+        <a href="#process" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">How It Works</a>
+        <a href="#faq" class="py-2.5 border-b border-brand-border/60 hover:text-brand-crimson transition">FAQs</a>
+        <a href="#contact" class="py-2.5 hover:text-brand-crimson transition">Contact Us</a>
+      </nav>
+      <div class="mt-6 pt-4 border-t border-brand-border">
+        <a href="#contact" class="w-full text-center py-3 rounded-xl bg-brand-crimson text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-brand-burgundy transition shadow-md">
+          <span>Get Started Free</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       ADVANCED HERO SECTION
+       ======================================================== -->
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-brand-surface bg-grid-pattern border-b border-brand-border overflow-hidden">
+    <!-- Subtle Architectural Ambient Radial Glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-brand-crimson/5 via-brand-navy/5 to-transparent blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      
+      <!-- Eyebrow Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-crimson/20 bg-brand-crimson/5 text-brand-crimson text-xs font-semibold mb-6 reveal-init">
+        <span class="w-2 h-2 rounded-full bg-brand-crimson animate-pulse"></span>
+        <span>Ideas Evolve. Technology Transforms.</span>
+      </div>
+
+      <!-- Main Headline with Crimson Accent -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight text-brand-navy max-w-4xl mx-auto leading-tight reveal-init delay-100">
+        Your Digital Growth Partner — <span class="text-brand-crimson relative inline-block">Without the Heavy Upfront Cost.</span>
+      </h1>
+
+      <!-- Supporting Statement -->
+      <p class="mt-6 text-base sm:text-lg text-brand-text max-w-2xl mx-auto leading-relaxed reveal-init delay-200">
+        From building your website and web applications to managing your social media presence, WebEkwal Technologies helps your business grow with affordable digital solutions and continuous technical support.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 reveal-init delay-300">
+        <a href="#free-offer" class="group w-full sm:w-auto px-8 py-3.5 rounded-xl bg-brand-crimson text-white font-display font-bold text-sm hover:bg-brand-burgundy transition-all duration-300 shadow-lg crimson-glow flex items-center justify-center gap-2 hover:-translate-y-0.5">
+          <span>Start Your 3-Month Free Service</span>
+          <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white text-brand-navy font-medium text-sm border border-brand-border hover:border-brand-navy transition duration-200 flex items-center justify-center shadow-sm hover:bg-gray-50">
+          Explore Our Services
+        </a>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="mt-14 pt-8 border-t border-brand-border max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-brand-text/80 reveal-init delay-400">
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-crimson" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Practical Solutions</span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-crimson" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Transparent Pricing</span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-crimson" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Partnership Built Around You</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 3: 3-MONTH FREE TRIAL FEATURE
+       ======================================================== -->
+  <section id="free-offer" class="py-20 bg-white border-b border-brand-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Zero Upfront Risk</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mt-2">
+          Experience Our Services for 3 Months — <span class="text-brand-crimson">Free.</span>
+        </h2>
+        <p class="mt-4 text-sm sm:text-base text-brand-text leading-relaxed">
+          We want you to experience the genuine value of working with WebEkwal Technologies before committing to a paid service plan. Start with an agreed scope of services for three months at zero service fee. At the end of the trial, decide whether you want to continue with us.
+        </p>
+      </div>
+
+      <!-- Linear Step Cards -->
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+        
+        <div class="p-6 rounded-2xl bg-brand-surface border border-brand-border card-hover-fx reveal-init delay-100">
+          <div class="w-10 h-10 rounded-xl bg-brand-navy text-white font-display font-bold flex items-center justify-center text-sm shadow-sm mb-4">
+            01
+          </div>
+          <h3 class="font-display font-bold text-lg text-brand-navy">Month 1 — Understand & Build</h3>
+          <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+            We learn about your business, align on milestones, and begin the agreed web or mobile application development.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-brand-surface border border-brand-border card-hover-fx reveal-init delay-200">
+          <div class="w-10 h-10 rounded-xl bg-brand-crimson text-white font-display font-bold flex items-center justify-center text-sm shadow-sm mb-4">
+            02
+          </div>
+          <h3 class="font-display font-bold text-lg text-brand-navy">Month 2 — Create & Improve</h3>
+          <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+            We deliver the agreed work increments, incorporate your feedback, test performance, and polish the user journey.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-brand-surface border border-brand-border card-hover-fx reveal-init delay-300">
+          <div class="w-10 h-10 rounded-xl bg-brand-burgundy text-white font-display font-bold flex items-center justify-center text-sm shadow-sm mb-4">
+            03
+          </div>
+          <h3 class="font-display font-bold text-lg text-brand-navy">Month 3 — Review & Evaluate</h3>
+          <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+            We review outcomes together and evaluate whether transitioning to our 12-month partnership plan is the ideal fit.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Terms & Qualification Policy Notice -->
+      <div class="mt-12 p-6 sm:p-8 rounded-2xl bg-brand-navy text-white border-l-4 border-brand-crimson max-w-4xl mx-auto shadow-md reveal-init">
+        <div class="flex items-center gap-2 text-brand-crimson font-bold text-sm">
+          <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span class="text-white">Reserved for Genuine, Active Businesses (No Time Pass)</span>
+        </div>
+        <p class="mt-3 text-xs sm:text-sm text-gray-300 leading-relaxed">
+          Our engineering team commits real development hours and specialized design resources to every client. Therefore, the 3-month free offer is strictly reserved for active startups, registered businesses, and serious entrepreneurs.
+        </p>
+        <div class="mt-4 pt-4 border-t border-white/10 text-[11px] text-gray-400">
+          * Deliverable Ownership: Clients who exit at Month 3 retain approved deliverables delivered during that trial. External 3rd party costs (hosting, domains, paid APIs, ad spend) are client-paid.
+        </div>
+      </div>
+
+      <div class="mt-8 text-center reveal-init">
+        <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-brand-crimson text-white font-display font-bold text-sm hover:bg-brand-burgundy transition shadow-md">
+          Discuss Your Free Trial
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 4: FULL-SPECTRUM CORE SERVICES
+       ======================================================== -->
+  <section id="services" class="py-20 bg-brand-surface border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Comprehensive Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mt-2">
+          Everything Your Business Needs to Grow Digitally.
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-brand-text">
+          High-performance digital engineering and creative assets crafted to scale your business.
+        </p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-crimson flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Website Development</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              Modern, responsive corporate websites designed with crisp typography and architecture to convert visitors into confirmed inquiries.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-crimson flex items-center gap-1">
+            <span>Corporate & Marketing Sites</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-navy flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Web Applications</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              Custom portals, operational dashboards, SaaS architectures, and internal business tools tailored to your workflow requirements.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-navy flex items-center gap-1">
+            <span>SaaS & Enterprise Portals</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-burgundy flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Mobile App Development</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              High-performance iOS and Android mobile applications offering fluid UI experiences and dependable backend API connectivity.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-burgundy flex items-center gap-1">
+            <span>iOS & Android Platforms</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-crimson flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Social Media Management</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              Systematic content calendars, brand post design, captivating copywriting, and coordinated distribution across business channels.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-crimson flex items-center gap-1">
+            <span>Content Strategy & Publishing</span>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-navy flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Digital Creatives & Meta Ads</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              Meta ad campaign setup, promotional reels production, commercial video editing, brand photoshoots, and logo identity systems.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-navy flex items-center gap-1">
+            <span>Campaigns & Production</span>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="p-6 rounded-2xl bg-white border border-brand-border card-hover-fx reveal-init delay-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-surface text-brand-burgundy flex items-center justify-center mb-4 border border-brand-border">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-lg text-brand-navy">Maintenance & Support</h3>
+            <p class="text-xs sm:text-sm text-brand-text mt-2 leading-relaxed">
+              Ongoing technical oversight, routine content updates, bug remediation, security patches, and reliable day-to-day maintenance.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-brand-border/60 text-xs font-semibold text-brand-burgundy flex items-center gap-1">
+            <span>Continuous Stability</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 5: THE 12-MONTH PARTNERSHIP BREAKDOWN
+       ======================================================== -->
+  <section id="partnership" class="py-20 bg-brand-navy text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-dark-grid opacity-30 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Strategic Partnership Model</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mt-2">
+          How the 12-Month Agreement Operates
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-gray-300">
+          A predictable, transparent timeline engineered for sustainable technical growth without high upfront agency fees.
+        </p>
+      </div>
+
+      <!-- Progressive Timeline -->
+      <div class="mt-14 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Phase 1 -->
+        <div class="p-8 rounded-2xl bg-brand-darkCard border border-white/10 relative reveal-left">
+          <div class="inline-block px-3 py-1 rounded-full bg-brand-crimson/20 border border-brand-crimson/40 text-brand-crimson text-xs font-bold mb-4">
+            Phase 1: Months 1–3
+          </div>
+          <h3 class="text-2xl font-display font-bold text-white">100% Free Development Trial</h3>
+          <p class="mt-3 text-xs sm:text-sm text-gray-300 leading-relaxed">
+            Zero service fees for agreed website, web application, or mobile app development. You evaluate our delivery velocity, code cleanliness, and partnership reliability firsthand.
+          </p>
+          <ul class="mt-6 space-y-2 text-xs text-gray-300">
+            <li class="flex items-center gap-2">✓ No service charges during first 90 days</li>
+            <li class="flex items-center gap-2">✓ Retain approved deliverables if you exit at Month 3</li>
+            <li class="flex items-center gap-2">✓ External assets & hosting paid directly by client</li>
+          </ul>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="p-8 rounded-2xl bg-brand-darkCard border-2 border-brand-crimson relative reveal-right">
+          <div class="inline-block px-3 py-1 rounded-full bg-brand-crimson text-white text-xs font-bold mb-4">
+            Phase 2: Months 4–15 (12 Full Months)
+          </div>
+          <h3 class="text-2xl font-display font-bold text-white">₹8,000/Month Maintenance</h3>
+          <p class="mt-3 text-xs sm:text-sm text-gray-300 leading-relaxed">
+            The 12-month agreement countdown begins in Month 4. For a flat ₹8,000/mo maintenance retainer, your platform is maintained while eligible development remains free of service charges!
+          </p>
+          <ul class="mt-6 space-y-2 text-xs text-gray-300">
+            <li class="flex items-center gap-2">✓ Flat ₹8,000/month fixed maintenance fee</li>
+            <li class="flex items-center gap-2">✓ Eligible development remains free under contract</li>
+            <li class="flex items-center gap-2">✓ Runs from Month 4 through Month 4 of the next year</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Deliverable Ownership / Retention Terms Callout -->
+      <div class="mt-10 p-6 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-xs text-gray-300 leading-relaxed reveal-init">
+        <span class="text-brand-crimson font-bold block mb-1">Important Codebase & Retention Policy:</span>
+        Clients who complete the 3-month free trial and exit retain their trial deliverables. For clients enrolled in the 12-month agreement who do not continue after the 12-month contract period, WebEkwal Technologies retains the codebase and approved work unless buyout terms are mutually agreed upon.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 6: TRANSPARENT PRICING
+       ======================================================== -->
+  <section id="pricing" class="py-20 bg-white border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Predictable Investment</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mt-2">
+          Straightforward Pricing. No Surprises.
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-brand-text">
+          Select between our high-value 12-month partnership plan, standalone project tracks, or marketing add-ons.
+        </p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Plan 1 -->
+        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border flex flex-col justify-between card-hover-fx reveal-init delay-100">
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-navy/10 text-brand-navy text-[10px] font-bold uppercase tracking-wider mb-2">
+              12-Month Agreement
+            </div>
+            <h3 class="text-2xl font-display font-bold text-brand-navy mt-2">Website Care Plan</h3>
+            <div class="mt-4 pb-4 border-b border-brand-border">
+              <span class="text-3xl font-display font-bold text-brand-navy">3 Months Free</span>
+              <p class="text-xs text-gray-500 mt-1">Then ₹8,000 / month from Month 4</p>
+            </div>
+            <p class="mt-4 text-xs text-brand-text leading-relaxed">
+              Enjoy 3 months of free eligible web services under our 12-month service agreement. From Month 4, maintenance is fixed at ₹8,000 per month.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-brand-text">
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Website development included under agreement</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Mobile & web app development included</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Content editing, updates & bug fixing</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> ₹8,000/mo maintenance begins Month 4</li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border">
+            <a href="#contact" class="w-full block text-center py-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-brand-crimson transition shadow-md">
+              Get Started
+            </a>
+            <span class="block text-[10px] text-gray-400 text-center mt-2">Free dev exclusive to 12-mo agreement clients.</span>
+          </div>
+        </div>
+
+        <!-- Plan 2 -->
+        <div class="p-8 rounded-2xl bg-brand-surface border border-brand-border flex flex-col justify-between card-hover-fx reveal-init delay-200">
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-burgundy/10 text-brand-burgundy text-[10px] font-bold uppercase tracking-wider mb-2">
+              Growth & Creative
+            </div>
+            <h3 class="text-2xl font-display font-bold text-brand-navy mt-2">Digital Presence Plan</h3>
+            <div class="mt-4 pb-4 border-b border-brand-border">
+              <span class="text-3xl font-display font-bold text-brand-navy">Custom Quote</span>
+              <p class="text-xs text-gray-500 mt-1">Tailored to campaign scope & goals</p>
+            </div>
+            <p class="mt-4 text-xs text-brand-text leading-relaxed">
+              Targeted marketing and creative services designed around your social channels, video production needs, and ad budgets.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-brand-text">
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Social media management & scheduling</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Meta Ads campaign setup & optimization</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Brand photoshoots, reels & video editing</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Ad spend & third-party assets paid by client</li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border">
+            <a href="#contact" class="w-full block text-center py-3 rounded-xl bg-white border border-brand-border text-brand-navy font-bold text-xs hover:border-brand-crimson hover:text-brand-crimson transition shadow-sm">
+              Request a Custom Quote
+            </a>
+            <span class="block text-[10px] text-gray-400 text-center mt-2">Priced on requirements & scope.</span>
+          </div>
+        </div>
+
+        <!-- Plan 3 (Featured) -->
+        <div class="p-8 rounded-2xl bg-white border-2 border-brand-crimson flex flex-col justify-between shadow-xl crimson-glow relative card-hover-fx reveal-init delay-300">
+          <span class="absolute -top-3.5 right-6 px-3.5 py-1 rounded-full bg-brand-crimson text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+            Most Popular
+          </span>
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-crimson/10 text-brand-crimson text-[10px] font-bold uppercase tracking-wider mb-2">
+              All-In-One Partner
+            </div>
+            <h3 class="text-2xl font-display font-bold text-brand-navy mt-2">Complete Digital Partner</h3>
+            <div class="mt-4 pb-4 border-b border-brand-border">
+              <span class="text-3xl font-display font-bold text-brand-navy">12-Month Plan</span>
+              <p class="text-xs text-brand-crimson font-medium mt-1">3 Months Free • Then ₹8,000/mo (Dev Included)</p>
+            </div>
+            <p class="mt-4 text-xs text-brand-text leading-relaxed">
+              Our flagship partnership tier. Complete digital engineering, web & mobile app building, continuous maintenance, and priority technical assistance.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-brand-text">
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Website, web application & mobile app development</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Free ongoing development during active agreement</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Continuous technical maintenance from Month 4</li>
+              <li class="flex items-start gap-2"><span class="text-brand-crimson font-bold">✓</span> Optional digital marketing & reel production add-ons</li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-4 border-t border-brand-border">
+            <a href="#contact" class="w-full block text-center py-3.5 rounded-xl bg-brand-crimson text-white font-bold text-xs hover:bg-brand-burgundy transition shadow-md">
+              Explore Partnership
+            </a>
+            <span class="block text-[10px] text-gray-500 text-center mt-2">Transparent contract with clearly defined terms.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 7: HOW IT WORKS
+       ======================================================== -->
+  <section id="process" class="py-20 bg-brand-surface border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Simple 4-Step Process</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mt-2">
+          Start Free. Experience the Value. Continue by Choice.
+        </h2>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="p-6 rounded-2xl bg-white border border-brand-border reveal-init delay-100">
+          <span class="text-2xl font-display font-bold text-brand-navy/20">01</span>
+          <h3 class="font-display font-bold text-base text-brand-navy mt-2">Tell Us Your Goals</h3>
+          <p class="text-xs text-brand-text mt-2 leading-relaxed">
+            Share your business objectives, target audience, and current digital hurdles.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-brand-border reveal-init delay-200">
+          <span class="text-2xl font-display font-bold text-brand-crimson/30">02</span>
+          <h3 class="font-display font-bold text-base text-brand-navy mt-2">Agree on Scope</h3>
+          <p class="text-xs text-brand-text mt-2 leading-relaxed">
+            We confirm deliverables, features, and technical boundaries for the 3-month free trial.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-brand-border reveal-init delay-300">
+          <span class="text-2xl font-display font-bold text-brand-burgundy/30">03</span>
+          <h3 class="font-display font-bold text-base text-brand-navy mt-2">Experience the Work</h3>
+          <p class="text-xs text-brand-text mt-2 leading-relaxed">
+            Our engineers build and refine your application while collecting your feedback.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-brand-border reveal-init delay-400">
+          <span class="text-2xl font-display font-bold text-brand-crimson">04</span>
+          <h3 class="font-display font-bold text-base text-brand-navy mt-2">Choose Next Step</h3>
+          <p class="text-xs text-brand-text mt-2 leading-relaxed">
+            Continue with our ₹8,000/mo maintenance partnership or conclude the trial with no penalty.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 8: INTERACTIVE FAQ ACCORDION
+       ======================================================== -->
+  <section id="faq" class="py-20 bg-white border-b border-brand-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Clear Expectations</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mt-2">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="mt-12 space-y-4" id="faq-accordion-group">
+        
+        <!-- FAQ 1 -->
+        <div class="border border-brand-border rounded-xl overflow-hidden bg-brand-surface reveal-init">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between text-brand-navy font-semibold text-sm sm:text-base hover:text-brand-crimson transition focus:outline-none" aria-expanded="false">
+            <span>1. How does the 3-Month Free Service and 12-Month Agreement work?</span>
+            <svg class="faq-icon w-5 h-5 text-brand-crimson transition-transform duration-300 shrink-0 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer-container">
+            <div class="px-6 pb-4 text-xs sm:text-sm text-brand-text leading-relaxed border-t border-brand-border/60 pt-3">
+              Eligible clients receive their agreed website, web app, or mobile app development completely free of service charges for the first 3 months. The 12-month agreement runs from Month 4 through Month 4 of the subsequent year (Month 15) at ₹8,000/month for ongoing maintenance, while eligible development continues without service fees.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="border border-brand-border rounded-xl overflow-hidden bg-brand-surface reveal-init">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between text-brand-navy font-semibold text-sm sm:text-base hover:text-brand-crimson transition focus:outline-none" aria-expanded="false">
+            <span>2. What is the deliverable retention policy if I do not continue?</span>
+            <svg class="faq-icon w-5 h-5 text-brand-crimson transition-transform duration-300 shrink-0 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer-container">
+            <div class="px-6 pb-4 text-xs sm:text-sm text-brand-text leading-relaxed border-t border-brand-border/60 pt-3">
+              If you exit at Month 3 following the free trial, you retain the approved deliverables produced during that trial period. For clients enrolled in the 12-month agreement who decide to discontinue services after the 12-month contract, WebEkwal Technologies retains the codebase and approved work unless specific buyout terms are mutually arranged.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="border border-brand-border rounded-xl overflow-hidden bg-brand-surface reveal-init">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between text-brand-navy font-semibold text-sm sm:text-base hover:text-brand-crimson transition focus:outline-none" aria-expanded="false">
+            <span>3. Are domain registration, hosting, and ad budgets included?</span>
+            <svg class="faq-icon w-5 h-5 text-brand-crimson transition-transform duration-300 shrink-0 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer-container">
+            <div class="px-6 pb-4 text-xs sm:text-sm text-brand-text leading-relaxed border-t border-brand-border/60 pt-3">
+              No. Third-party direct costs—such as domain name registration, hosting servers, paid APIs, third-party software licenses, and Meta/Google advertising budgets—are paid directly by the client.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="border border-brand-border rounded-xl overflow-hidden bg-brand-surface reveal-init">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between text-brand-navy font-semibold text-sm sm:text-base hover:text-brand-crimson transition focus:outline-none" aria-expanded="false">
+            <span>4. Can I commission individual standalone projects instead?</span>
+            <svg class="faq-icon w-5 h-5 text-brand-crimson transition-transform duration-300 shrink-0 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer-container">
+            <div class="px-6 pb-4 text-xs sm:text-sm text-brand-text leading-relaxed border-t border-brand-border/60 pt-3">
+              Yes. If you do not wish to commit to a 12-month partnership, we provide custom milestone-based quotations for individual websites, web portals, or mobile applications.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 9: CONSULTATION & LEAD CAPTURE FORM
+       ======================================================== -->
+  <section id="contact" class="py-20 bg-brand-navy text-white relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center reveal-init">
+        <span class="text-brand-crimson uppercase text-xs tracking-widest font-bold">Get In Touch</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mt-2">
+          Let's Build Something That Moves Your Business Forward.
+        </h2>
+        <p class="mt-3 text-sm text-gray-300">
+          Share your project scope or speak directly with our engineering leadership.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4 reveal-init">
+        <a href="https://api.whatsapp.com/send?phone=919912397760&text=Hello%20WebEkwal%20Technologies,%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 transition shadow-md">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.449.741.964 1.2 1.091.97 1.341 1.054 1.528 1.148.188.094.299.08.411-.05.112-.13.477-.557.604-.748.127-.191.255-.16.427-.097.173.064 1.097.517 1.285.611.188.094.313.14.36.219.046.079.046.455-.098.86z"/></svg>
+          <span>WhatsApp: +91 9912397760</span>
+        </a>
+        <a href="tel:+919912397760" onclick="handlePhoneClick(event)" class="px-6 py-3 rounded-xl bg-brand-darkCard border border-white/20 hover:border-brand-crimson text-white font-bold text-xs flex items-center gap-2 transition">
+          <svg class="w-4 h-4 text-brand-crimson" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Call: +91 9912397760</span>
+        </a>
+      </div>
+
+      <!-- Lead Capture Form -->
+      <form id="consultation-form" onsubmit="handleFormSubmit(event)" class="mt-10 p-8 rounded-2xl bg-brand-darkCard border border-white/10 shadow-2xl space-y-6 reveal-scale">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="form-name" class="block text-xs font-semibold text-gray-300 mb-2">Full Name *</label>
+            <input type="text" id="form-name" required placeholder="Alex Mercer" class="w-full px-4 py-3 rounded-xl bg-brand-navy border border-white/10 text-white text-xs focus:border-brand-crimson outline-none transition">
+          </div>
+
+          <div>
+            <label for="form-contact" class="block text-xs font-semibold text-gray-300 mb-2">Business Email / Phone *</label>
+            <input type="text" id="form-contact" required placeholder="alex@company.com or phone" class="w-full px-4 py-3 rounded-xl bg-brand-navy border border-white/10 text-white text-xs focus:border-brand-crimson outline-none transition">
+          </div>
+        </div>
+
+        <div>
+          <label for="form-brand" class="block text-xs font-semibold text-gray-300 mb-2">Company / Brand Name</label>
+          <input type="text" id="form-brand" placeholder="Acme Logistics" class="w-full px-4 py-3 rounded-xl bg-brand-navy border border-white/10 text-white text-xs focus:border-brand-crimson outline-none transition">
+        </div>
+
+        <div>
+          <label for="form-service" class="block text-xs font-semibold text-gray-300 mb-2">Services Interested In *</label>
+          <select id="form-service" class="w-full px-4 py-3 rounded-xl bg-brand-navy border border-white/10 text-white text-xs focus:border-brand-crimson outline-none transition">
+            <option value="12-Month Partnership">12-Month Partnership (3 Months Free + ₹8,000/mo)</option>
+            <option value="Website Development">Website Development</option>
+            <option value="Web Application">Web Application Development</option>
+            <option value="Mobile App Development">Mobile App Development</option>
+            <option value="Social Media & Meta Ads">Social Media & Meta Ads</option>
+            <option value="Individual Project">Individual Standalone Project</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="form-notes" class="block text-xs font-semibold text-gray-300 mb-2">Project Goals & Requirements *</label>
+          <textarea id="form-notes" rows="4" required placeholder="Describe your product requirements, deadlines, or business targets..." class="w-full px-4 py-3 rounded-xl bg-brand-navy border border-white/10 text-white text-xs focus:border-brand-crimson outline-none transition"></textarea>
+        </div>
+
+        <div class="flex items-start gap-2.5">
+          <input type="checkbox" id="form-terms" required class="mt-1 rounded accent-brand-crimson">
+          <label for="form-terms" class="text-[11px] text-gray-400 leading-snug">
+            I understand that inquiries are for genuine projects and that I have reviewed the 3-month trial and 12-month agreement terms.
+          </label>
+        </div>
+
+        <button type="submit" id="form-submit-btn" class="w-full py-3.5 rounded-xl bg-brand-crimson text-white font-display font-bold text-sm hover:bg-brand-burgundy transition shadow-lg flex items-center justify-center gap-2">
+          <span>Request a Free Consultation</span>
+        </button>
+
+      </form>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 10: CORPORATE FOOTER
+       ======================================================== -->
+  <footer class="bg-brand-navy border-t border-white/10 py-12 text-xs text-gray-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center gap-0.5 p-1">
+            <div class="w-1 h-3.5 bg-white rounded-xs"></div>
+            <div class="w-1.5 h-4.5 bg-brand-crimson rounded-xs"></div>
+            <div class="w-1 h-3.5 bg-brand-burgundy rounded-xs"></div>
+          </div>
+          <span class="text-white font-display font-bold text-base">WebEkwal Technologies</span>
+        </div>
+        <p class="mt-3 text-xs text-gray-400 max-w-sm leading-relaxed">
+          Ideas Evolve. Technology Transforms. Your dependable digital engineering partner for websites, custom applications, and strategic brand growth.
+        </p>
+        <div class="mt-4 text-[11px] text-gray-400">
+          📍 HITEC City, Hyderabad, India | 📞 +91 9912397760
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">Navigation</h4>
+        <ul class="space-y-2">
+          <li><a href="#services" class="hover:text-brand-crimson transition">Services</a></li>
+          <li><a href="#free-offer" class="hover:text-brand-crimson transition">3-Month Free Offer</a></li>
+          <li><a href="#partnership" class="hover:text-brand-crimson transition">12-Month Agreement</a></li>
+          <li><a href="#pricing" class="hover:text-brand-crimson transition">Pricing Plans</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">Direct Connect</h4>
+        <ul class="space-y-2">
+          <li><a href="tel:+919912397760" onclick="handlePhoneClick(event)" class="hover:text-brand-crimson transition">Call: +91 9912397760</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=919912397760" target="_blank" class="hover:text-brand-crimson transition">WhatsApp: +91 9912397760</a></li>
+          <li><span class="text-gray-500">24/7 Digital Support</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-white/5 text-center text-[11px] text-gray-500">
+      © 2026 WebEkwal Technologies. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       FLOATING QUICK DOCK (BOTTOM-LEFT)
+       ======================================================== -->
+  <div class="fixed bottom-6 left-6 z-40 flex items-center gap-2 bg-brand-navy/90 backdrop-blur-md p-1.5 rounded-full border border-white/10 shadow-2xl">
+    <a href="https://api.whatsapp.com/send?phone=919912397760&text=Hello%20WebEkwal%20Technologies" target="_blank" class="p-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition hover:scale-105" title="WhatsApp Chat" aria-label="WhatsApp Chat">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.449.741.964 1.2 1.091.97 1.341 1.054 1.528 1.148.188.094.299.08.411-.05.112-.13.477-.557.604-.748.127-.191.255-.16.427-.097.173.064 1.097.517 1.285.611.188.094.313.14.36.219.046.079.046.455-.098.86z"/></svg>
+    </a>
+    <a href="tel:+919912397760" onclick="handlePhoneClick(event)" class="p-2.5 rounded-full bg-brand-crimson hover:bg-brand-burgundy text-white transition hover:scale-105" title="Direct Phone Call" aria-label="Direct Phone Call">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </div>
+
+  <!-- ========================================================
+       FLOATING AI SALES ASSISTANT (BOTTOM-RIGHT)
+       ======================================================== -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <button id="ai-assistant-toggle" type="button" class="px-4 py-3 rounded-full bg-brand-navy border border-brand-crimson/50 text-white font-display font-bold text-xs flex items-center gap-2.5 shadow-2xl hover:bg-brand-crimson transition hover:scale-105">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <svg class="w-4 h-4 text-brand-crimson" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Ask WebEkwal</span>
+    </button>
+  </div>
+
+  <!-- AI Chat Window Panel -->
+  <div id="ai-chat-panel" class="fixed bottom-20 right-6 z-50 hidden w-[350px] sm:w-[380px] max-w-[90vw] h-[480px] bg-brand-navy border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <!-- Header -->
+    <div class="p-3.5 bg-brand-darkCard border-b border-white/10 flex items-center justify-between text-white">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-brand-crimson flex items-center justify-center text-xs font-bold font-display">AI</div>
+        <div>
+          <h4 class="text-xs font-bold leading-tight">WebEkwal Digital Assistant</h4>
+          <span class="text-[10px] text-emerald-400">● 24/7 Knowledge Desk</span>
+        </div>
+      </div>
+      <button id="ai-chat-close-btn" class="text-gray-400 hover:text-white p-1" aria-label="Close Assistant">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="ai-messages-container" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs">
+      <div class="flex justify-start">
+        <div class="bg-brand-darkCard border border-white/10 text-gray-200 p-3 rounded-2xl rounded-tl-sm leading-relaxed max-w-[85%]">
+          👋 Hi! Welcome to WebEkwal Technologies.<br><br>
+          Looking for a website, web app, mobile application, or digital growth partner? I can explain our services, the 3-month free trial, or our 12-month partnership. What would you like to explore?
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Action Chips -->
+    <div class="p-2 border-t border-white/10 bg-black/20 flex items-center gap-1.5 overflow-x-auto text-[10px] whitespace-nowrap">
+      <button type="button" class="quick-chip px-2.5 py-1 rounded-full bg-brand-darkCard border border-white/10 text-gray-200 hover:border-brand-crimson hover:text-white">3-Month Free Offer</button>
+      <button type="button" class="quick-chip px-2.5 py-1 rounded-full bg-brand-darkCard border border-white/10 text-gray-200 hover:border-brand-crimson hover:text-white">₹8,000 Maintenance</button>
+      <button type="button" class="quick-chip px-2.5 py-1 rounded-full bg-brand-darkCard border border-white/10 text-gray-200 hover:border-brand-crimson hover:text-white">Talk to Team</button>
+    </div>
+
+    <!-- Input Bar -->
+    <div class="p-2.5 bg-brand-darkCard border-t border-white/10 flex items-center gap-2">
+      <input type="text" id="ai-input" placeholder="Type your question..." class="flex-1 bg-brand-navy border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-brand-crimson">
+      <button id="ai-send-btn" class="p-2 bg-brand-crimson text-white rounded-xl hover:bg-brand-burgundy transition" aria-label="Send Message">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Wrapper -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-brand-navy border border-brand-crimson text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 pointer-events-none opacity-0"></div>
+
+  <!-- ========================================================
+       JAVASCRIPT LOGIC
+       ======================================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initPreloader();
+      initScrollReveal();
+      initFaqAccordion();
+      initMobileDrawer();
+      initAiAssistant();
+    });
+
+    // 1. Cinematic Preloader
+    function initPreloader() {
+      const preloader = document.getElementById('site-preloader');
+      const bar = document.getElementById('loader-bar');
+      if (!preloader) return;
+
+      if (sessionStorage.getItem('we_loaded')) {
+        preloader.classList.add('hidden');
+        return;
+      }
+
+      setTimeout(() => { if (bar) bar.style.width = '100%'; }, 50);
+
+      setTimeout(() => {
+        preloader.classList.add('opacity-0');
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+          sessionStorage.setItem('we_loaded', '1');
+        }, 700);
+      }, 750);
+    }
+
+    // 2. Scroll-Reveal via IntersectionObserver
+    function initScrollReveal() {
+      const items = document.querySelectorAll('.reveal-init, .reveal-left, .reveal-right, .reveal-scale');
+      if (!items.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-revealed'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      items.forEach(el => observer.observe(el));
+    }
+
+    // 3. Smooth FAQ Accordion
+    function initFaqAccordion() {
+      const buttons = document.querySelectorAll('.faq-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const container = btn.nextElementSibling;
+          const icon = btn.querySelector('.faq-icon');
+          const isOpen = container.classList.contains('open');
+
+          document.querySelectorAll('.faq-answer-container').forEach(c => c.classList.remove('open'));
+          document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+
+          if (!isOpen) {
+            container.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            if (icon) icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    }
+
+    // 4. Mobile Drawer Navigation
+    function initMobileDrawer() {
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const drawer = document.getElementById('mobile-menu-drawer');
+      const label = document.getElementById('mobile-menu-label');
+      const burger = document.getElementById('hamburger-icon');
+      const close = document.getElementById('close-icon');
+
+      if (!toggle || !drawer) return;
+
+      const toggleMenu = (open) => {
+        if (open) {
+          drawer.classList.remove('hidden');
+          toggle.setAttribute('aria-expanded', 'true');
+          label.textContent = 'Close';
+          burger.classList.add('hidden');
+          close.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        } else {
+          drawer.classList.add('hidden');
+          toggle.setAttribute('aria-expanded', 'false');
+          label.textContent = 'Menu';
+          burger.classList.remove('hidden');
+          close.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      };
+
+      toggle.addEventListener('click', () => {
+        const isHidden = drawer.classList.contains('hidden');
+        toggleMenu(isHidden);
+      });
+
+      drawer.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => toggleMenu(false));
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.classList.contains('hidden')) {
+          toggleMenu(false);
+        }
+      });
+    }
+
+    // 5. Floating AI Assistant & Knowledge Base
+    function initAiAssistant() {
+      const toggleBtn = document.getElementById('ai-assistant-toggle');
+      const panel = document.getElementById('ai-chat-panel');
+      const closeBtn = document.getElementById('ai-chat-close-btn');
+      const sendBtn = document.getElementById('ai-send-btn');
+      const input = document.getElementById('ai-input');
+      const msgBox = document.getElementById('ai-messages-container');
+
+      if (!toggleBtn || !panel) return;
+
+      toggleBtn.addEventListener('click', () => panel.classList.remove('hidden'));
+      closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+
+      function appendMsg(sender, text) {
+        const wrap = document.createElement('div');
+        wrap.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+        const bubble = document.createElement('div');
+        bubble.className = sender === 'user'
+          ? 'bg-brand-crimson text-white px-3.5 py-2 rounded-2xl rounded-tr-sm text-xs max-w-[85%]'
+          : 'bg-brand-darkCard border border-white/10 text-gray-200 px-3.5 py-2 rounded-2xl rounded-tl-sm text-xs max-w-[85%] leading-relaxed';
+        bubble.innerHTML = text;
+        wrap.appendChild(bubble);
+        msgBox.appendChild(wrap);
+        msgBox.scrollTop = msgBox.scrollHeight;
+      }
+
+      function getReply(q) {
+        const query = q.toLowerCase();
+        if (query.includes('3-month') || query.includes('free') || query.includes('trial')) {
+          return "Our 3-Month Free Service covers agreed web, mobile, or web application development at zero service fee. If you exit at Month 3, you retain approved work delivered during the trial. It is reserved for genuine, active businesses.";
+        }
+        if (query.includes('8000') || query.includes('pricing') || query.includes('cost') || query.includes('maintenance')) {
+          return "Under our 12-Month Agreement, the first 3 months are free. From Month 4 through Month 15, the maintenance fee is ₹8,000/month, and eligible ongoing development remains free of service charges!";
+        }
+        if (query.includes('team') || query.includes('call') || query.includes('whatsapp') || query.includes('contact')) {
+          return "You can connect directly with our leadership via WhatsApp or direct phone call at <strong>+91 9912397760</strong>.";
+        }
+        if (query.includes('retain') || query.includes('code') || query.includes('ownership')) {
+          return "Trial clients retain approved deliverables if leaving at Month 3. For 12-month agreement clients who discontinue after the 12-month period, WebEkwal Technologies retains the codebase unless buyout terms are arranged.";
+        }
+        return "WebEkwal Technologies provides web development, web apps, mobile apps, social media handling, and Meta Ads. Would you like to explore our 3-month free offer or book a consultation?";
+      }
+
+      function send() {
+        const val = input.value.trim();
+        if (!val) return;
+        appendMsg('user', val);
+        input.value = '';
+
+        setTimeout(() => {
+          const reply = getReply(val);
+          appendMsg('assistant', reply);
+        }, 400);
+      }
+
+      sendBtn.addEventListener('click', send);
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') send(); });
+
+      document.querySelectorAll('.quick-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          input.value = chip.textContent.trim();
+          send();
+        });
+      });
+    }
+
+    // Direct Phone Click Handler
+    function handlePhoneClick(e) {
+      if (e) e.preventDefault();
+      const num = "+919912397760";
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = "tel:" + num;
+      } else {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(num).then(() => showToast("Copied +91 9912397760 to clipboard!"));
+        } else {
+          showToast("Call WebEkwal: +91 9912397760");
+        }
+      }
+    }
+
+    // Toast Messenger
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 3000);
+    }
+
+    // Form Submission
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('form-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting Request...';
+
+      setTimeout(() => {
+        showToast("Thank you! Your consultation request has been received.");
+        e.target.reset();
+        btn.disabled = false;
+        btn.textContent = 'Request a Free Consultation';
+      }, 800);
+    }
+  </script>
+</body>
+</html>
